@@ -2035,7 +2035,7 @@ server <- function(input, output, session) {
                                                          marmelade_jam_jelly_honey == 3~ 1.5/7*15,
                                                          marmelade_jam_jelly_honey == 4~ 3.5/7*15,
                                                          marmelade_jam_jelly_honey == 5~5.5/7*15,
-                                                         marmelade_jam_jelly_honey =F= 6~1.5*15,
+                                                         marmelade_jam_jelly_honey == 6~1.5*15,
                                                          marmelade_jam_jelly_honey == 7~3*15))
     }
     

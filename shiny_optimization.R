@@ -85,11 +85,11 @@ server <- function(input, output, session) {
       
       if ("white_wheat_bread_buns" %in% colnames(df)) {
         df <- df %>%
-          mutate(whole_grain_bread_buns_1 = case_when(whole_grain_bread_buns == 0 ~ 0,
-                                                      whole_grain_bread_buns == 1 ~ 0.1 * bread_rolls_buns_week,
-                                                      whole_grain_bread_buns == 2 ~ 0.4 * bread_rolls_buns_week,
-                                                      whole_grain_bread_buns == 3 ~ 0.77 * bread_rolls_buns_week,
-                                                      whole_grain_bread_buns == 4 ~ bread_rolls_buns_week
+          mutate(white_wheat_bread_buns_1 = case_when(white_wheat_bread_buns == 0 ~ 0,
+                                                      white_wheat_bread_buns == 1 ~ 0.1 * bread_rolls_buns_week,
+                                                      white_wheat_bread_buns == 2 ~ 0.4 * bread_rolls_buns_week,
+                                                      white_wheat_bread_buns == 3 ~ 0.77 * bread_rolls_buns_week,
+                                                      white_wheat_bread_buns == 4 ~ bread_rolls_buns_week
           ))
       }
       
@@ -153,6 +153,14 @@ server <- function(input, output, session) {
           ))
       }
       
+      required_vars <- c("rye_multigrain_bread_1", "whole_grain_bread_buns_1", "white_wheat_bread_buns_1",
+                         "crisp_1", "crispbread_1", "butter_1", "regular_1", 
+                         "fat_reduced_margarine_1", "peanut_butter_1")
+      
+      for (v in required_vars) {
+        if (!v %in% colnames(df)) df[[v]] <- NA
+      }
+      
     }  else {
       
               df$bread_rolls_buns_week <- NA
@@ -192,7 +200,7 @@ server <- function(input, output, session) {
       mutate(
         rye_multigrain_bread_week = ifelse(!is.na(bread) & bread > 0, (rye_multigrain_bread_1 / bread) * bread_rolls_buns_week, NA),
         whole_grain_bread_buns_week = ifelse(!is.na(bread) & bread > 0, (whole_grain_bread_buns_1 / bread) * bread_rolls_buns_week, NA),
-        white_wheat_bread_buns_week = ifelse(!is.na(bread) & bread>0, (white_wheat_bread_buns_1/bread) * bread_rolls_buns_day),
+        white_wheat_bread_buns_week = ifelse(!is.na(bread) & bread>0, (white_wheat_bread_buns_1/bread) * bread_rolls_buns_week),
         butter_week = ifelse(!is.na(spreads) & spreads > 0, (butter_1 / spreads) * bread_rolls_buns_week, NA),
         regular_week = ifelse(!is.na(spreads) & spreads > 0, (regular_1 / spreads) * bread_rolls_buns_week, NA),
         fat_reduced_margarine_week = ifelse(!is.na(spreads) & spreads > 0, (fat_reduced_margarine_1 / spreads) * bread_rolls_buns_week, NA),
@@ -1886,11 +1894,11 @@ server <- function(input, output, session) {
       
       if ("white_wheat_bread_buns" %in% colnames(df)) {
         df <- df %>%
-          mutate(whole_grain_bread_buns1 = case_when(whole_grain_bread_buns == 0 ~ 0,
-                                                     whole_grain_bread_buns == 1 ~ 0.1,
-                                                     whole_grain_bread_buns == 2 ~ 0.4,
-                                                     whole_grain_bread_buns == 3 ~ 0.77,
-                                                     whole_grain_bread_buns == 4 ~ 1
+          mutate(white_wheat_bread_buns1 = case_when(white_wheat_bread_buns == 0 ~ 0,
+                                                     white_wheat_bread_buns == 1 ~ 0.1,
+                                                     white_wheat_bread_buns == 2 ~ 0.4,
+                                                     white_wheat_bread_buns == 3 ~ 0.77,
+                                                     white_wheat_bread_buns == 4 ~ 1
           ))
       }
       
@@ -1952,6 +1960,14 @@ server <- function(input, output, session) {
                                             peanut_butter == 3 ~ 0.77,
                                             peanut_butter == 4 ~ 1
           ))
+      }
+      
+      req_vars <- c("rye_multigrain_bread1", "whole_grain_bread_buns1", "white_wheat_bread_buns1",
+                         "crisp1", "crispbread1", "butter1", "regular1", 
+                         "fat_reduced_margarine1", "peanut_butter1")
+      
+      for (v in req_vars) {
+        if (!v %in% colnames(df)) df[[v]] <- NA
       }
       
     }  else {
@@ -2035,7 +2051,7 @@ server <- function(input, output, session) {
                                                          marmelade_jam_jelly_honey == 3~ 1.5/7*15,
                                                          marmelade_jam_jelly_honey == 4~ 3.5/7*15,
                                                          marmelade_jam_jelly_honey == 5~5.5/7*15,
-                                                         marmelade_jam_jelly_honey =F= 6~1.5*15,
+                                                         marmelade_jam_jelly_honey == 6~1.5*15,
                                                          marmelade_jam_jelly_honey == 7~3*15))
     }
     
